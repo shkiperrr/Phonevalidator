@@ -1,3 +1,7 @@
+/*
+Программа проверяет на валидность мобильные номера с кодом страны Украины. (+380 *********)
+*/
+
 import java.util.Scanner;
 
 public class phone {
@@ -15,7 +19,9 @@ public class phone {
             String str = scanner.next();
             char[] arc = str.toCharArray();
             String str2 = str.substring(0, 1);
-            String str3 = str.substring(1, str.length());
+            String str3 = str.substring(1, 4);
+            String str4 = str.substring(4, str.length());
+            String str5 = str3 + str4;
 
             if (str.length() == 13) flag++;
 
@@ -23,18 +29,23 @@ public class phone {
                 flag++;
             }
 
+            if (str3.equals("380")) {
+                flag++;
+            }
+
             for(int i=1;i<str.length();i++) {
                 if( !Character.isDigit(arc[i])) flag--;
             }
 
-            int len = str3.length();
+
+            int len = str5.length();
             int sum = 0;
             int[] num = new int[len];
 
-            if (flag == 2) {
+            if (flag == 3) {
                 System.out.println("Phone number is correct");
                 for (int i = 0; i < len; i++) {
-                    num[i] = str3.charAt(i) - '0';
+                    num[i] = str5.charAt(i) - '0';
                     sum += num[i];
                 }
 
@@ -53,7 +64,7 @@ public class phone {
                 System.out.println("Phone number is incorrect. Please enter the phone number");
             }
 
-        } while(!(flag == 2));
+        } while(!(flag == 3));
 
         switch (res) {
             case 1: System.out.println("Final result is: One"); break;
